@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+
+@{
+    ViewData["Title"] = "Danh sách người dùng";
+}
+<div class="container" style="padding: 3rem 8rem;">
+<div class="mb-3 text-primary ">
+    <h2 class="mb-3 text-primary">@ViewData["Title"]</h2>
+    <a asp-action="Create" asp-controller="User" class="btn btn-primary fw-semibold">
+        <i class="bi bi-plus-circle"></i> Thêm người dùng mới
+    </a>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Tên</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+                <td>
+                    <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@user.Id">Sửa</a>
+
+                    <form asp-action="Delete" asp-route-id="@user.Id" method="post"
+                          style="display:inline;"
+                          onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i> Xóa
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

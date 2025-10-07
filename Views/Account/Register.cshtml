@@ -1,0 +1,48 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Đăng Ký Tài Khoản";
+}
+
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="card shadow-lg p-4 rounded-4" style="max-width: 450px; width: 100%;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-success">Đăng Ký</h2>
+            <p class="text-muted">Tạo tài khoản mới để quản lý kho hàng</p>
+        </div>
+
+        <form asp-action="Register" method="post" asp-controller="Account">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label fw-semibold">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Nhập email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label fw-semibold">Mật khẩu</label>
+                <input asp-for="Password" class="form-control" placeholder="Tạo mật khẩu" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ConfirmPassword" class="form-label fw-semibold">Nhập lại mật khẩu</label>
+                <input asp-for="ConfirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 py-2 fw-semibold">Đăng Ký</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <p class="mb-0 small">
+                Đã có tài khoản?
+                <a href="/Account/Login" class="text-decoration-none text-primary fw-semibold">Đăng nhập</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

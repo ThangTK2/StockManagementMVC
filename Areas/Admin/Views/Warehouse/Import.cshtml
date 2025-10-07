@@ -1,0 +1,42 @@
+﻿@model StockManagementMVC.Models.WarehouseTransactionModel
+
+@{
+    ViewData["Title"] = "Nhập kho";
+}
+
+<div class="container" style="padding: 3rem 8rem;">
+    <h2 class="mb-3 text-success">Nhập kho sản phẩm</h2>
+    <a asp-action="ListWarehouse" asp-controller="Warehouse" class="btn btn-success fw-semibold mb-3">
+        <i class="bi bi-plus-circle"></i> Danh sách nhập/xuất kho
+    </a>
+
+    <form asp-area="Admin" asp-action="Import" method="post">
+        @Html.AntiForgeryToken()  @* tạo token ẩn trong form. là một cơ chế bảo mật để ngăn chặn CSRF*@
+        <div class="mb-3">
+            <label class="form-label">Sản phẩm</label>
+            <select asp-for="ProductId" class="form-control"
+                    asp-items="@(new SelectList(ViewBag.Products, "Id", "NameWithQuantity"))">
+                <option value="">-- Chọn sản phẩm --</option>
+            </select>
+            <span asp-validation-for="ProductId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Số lượng nhập</label>
+            <input asp-for="Quantity" class="form-control" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ghi chú</label>
+            <input asp-for="Notes" class="form-control" />
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">Nhập kho</button>
+        <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-secondary">Danh sách sản phẩm</a>
+    </form>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

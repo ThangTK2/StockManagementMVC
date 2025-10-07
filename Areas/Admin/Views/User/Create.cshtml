@@ -1,0 +1,41 @@
+﻿@model StockManagementMVC.Models.ViewModel.UserViewModal
+
+@{
+    ViewData["Title"] = "Thêm Người Dùng";
+}
+
+<div class="d-flex align-items-center justify-content-center" style="padding: 3rem 8rem;">
+    <div class="card shadow-lg p-4 rounded-4" style="max-width: 500px; width: 100%;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary">Thêm Người Dùng</h2>
+            <p class="text-muted">Nhập thông tin người dùng mới để quản lý hệ thống</p>
+        </div>
+
+        <form asp-action="Create" method="post" asp-controller="User">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label fw-semibold">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Nhập email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label fw-semibold">Mật khẩu</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Nhập mật khẩu" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-action="Index" asp-controller="User" class="btn btn-secondary fw-semibold">
+                    Trở lại danh sách người dùng
+                </a>
+                <button type="submit" class="btn btn-primary fw-semibold">Thêm người dùng</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

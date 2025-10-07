@@ -1,0 +1,70 @@
+﻿@model StockManagementMVC.Models.ProductModel
+
+@{
+    ViewData["Title"] = "Cập nhật sản phẩm";
+}
+
+<div class="d-flex align-items-center justify-content-center" style="padding: 3rem 8rem;">
+    <div class="card shadow-lg p-4 rounded-4" style="max-width: 500px; width: 100%;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-success">Cập nhật sản phẩm</h2>
+            <p class="text-muted">Chỉnh sửa thông tin sản phẩm</p>
+        </div>
+
+        <form asp-action="Edit" method="post" asp-controller="Product">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="ProductCode" class="form-label fw-semibold"></label>
+                <input asp-for="ProductCode" class="form-control" />
+                <span asp-validation-for="ProductCode" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProductName" class="form-label fw-semibold"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProductDescription" class="form-label fw-semibold"></label>
+                <textarea asp-for="ProductDescription" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="ProductDescription" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProductQuantity" class="form-label fw-semibold"></label>
+                <input asp-for="ProductQuantity" type="number" class="form-control" />
+                <span asp-validation-for="ProductQuantity" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProductUnit" class="form-label fw-semibold"></label>
+                <select asp-for="ProductUnit" class="form-select">
+                    <option value="">-- Chọn đơn vị --</option>
+                    <option value="Cái">Cái</option>
+                    <option value="Thùng">Thùng</option>
+                    <option value="Bịch">Bịch</option>
+                    <option value="Hộp">Hộp</option>
+                </select>
+                <span asp-validation-for="ProductUnit" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Location" class="form-label fw-semibold"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-action="Index" class="btn btn-secondary fw-semibold">Quay lại</a>
+                <button type="submit" class="btn btn-success fw-semibold">Lưu thay đổi</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,81 @@
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@model IPagedList<StockManagementMVC.Models.WarehouseTransactionModel>
+
+@{
+    ViewData["Title"] = "Danh sách nhập/xuất kho";
+}
+
+<div class="container" style="padding: 3rem 8rem;">
+    <h2 class="mb-3">Danh sách nhập/xuất kho</h2>
+
+    <!-- Filter form (dùng asp-items để Razor xử lý selected) -->
+    @{
+        var items = new List<object> {
+        new { Value = "", Text = "-- Tình trạng --" },
+        new { Value = "Nhap", Text = "Nhập kho" },
+        new { Value = "Xuat", Text = "Xuất kho" }
+        };
+        ViewBag.FilterOptions = new SelectList(items, "Value", "Text", ViewBag.CurrentFilter);
+    }
+
+    <form method="get" asp-action="ListWarehouse" class="mb-3">
+        <div class="row g-2">
+            <div class="col-md-3">
+                <select name="filter" class="form-select" onchange="this.form.submit()" asp-items="ViewBag.FilterOptions"></select>
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Ngày giao dịch</th>
+                <th>Ghi chú</th>
+                <th>Tình trạng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product?.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.TransactionDate.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@item.Notes</td>
+                    <td>
+                        @{
+                            var tt = (item.TransactionType ?? "").ToLowerInvariant();
+                            if (tt.Contains("nhập") || tt.Contains("nhap") || tt.Contains("import"))
+                            {
+                                <span class="badge bg-success">Nhập</span>
+                            }
+                            else if (tt.Contains("xuất") || tt.Contains("xuat") || tt.Contains("export"))
+                            {
+                                <span class="badge bg-danger">Xuất</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Khác</span>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Phân trang: quan trọng — truyền filter để giữ trạng thái -->
+    <div class="d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("ListWarehouse", new { page, filter = ViewBag.CurrentFilter }),
+        new PagedListRenderOptions
+        {
+            Display = PagedListDisplayMode.IfNeeded,
+            MaximumPageNumbersToDisplay = 5,
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
+    </div>
+</div>

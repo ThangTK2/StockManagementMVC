@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StockManagementMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/StockManagementMVC.styles.css" asp-append-version="true" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow" style="padding: 1.5rem 5rem;">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold text-primary" asp-area="" asp-controller="Home" asp-action="Index">
+                    StockManagementMVC
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-primary fw-semibold" asp-area="" asp-controller="Home" asp-action="Index">
+                                Trang chủ
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary fw-semibold" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                Chính sách bảo mật
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary fw-semibold" asp-area="Admin" asp-controller="Dashboard" asp-action="">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-primary fw-semibold" asp-area="Admin" asp-controller="Product" asp-action="Index">
+                                    Quản lý sản phẩm
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-primary fw-semibold" asp-area="Admin" asp-controller="Warehouse" asp-action="Import">
+                                    Nhập kho
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-primary fw-semibold" asp-area="Admin" asp-controller="Warehouse" asp-action="Export">
+                                    Xuất kho
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-primary fw-semibold" asp-area="Admin" asp-controller="User" asp-action="Index">
+                                    Quản lý người dùng
+                                </a>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <form method="post" asp-area="" asp-controller="Account" asp-action="Login" class="d-inline m-0"
+                                      onsubmit="return confirm('Bạn có chắc muốn đăng xuất không?');">
+
+                                    <button type="submit" class="nav-link btn btn-link text-danger fw-semibold p-0">
+                                        <i class="fa-solid fa-right-from-bracket me-1"></i>Đăng xuất
+                                    </button>
+                                </form>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark fw-semibold" asp-area="" asp-controller="Account" asp-action="Login">
+                                    Đăng nhập
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark fw-semibold" asp-area="" asp-controller="Account" asp-action="Register">
+                                    Đăng ký
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="bg-light border-top text-muted" style="padding: 3rem 8rem;">
+        <div class="container">
+            <div class="row text-dark gy-4">
+                <!-- Cột 1: Logo / Tên dự án -->
+                <div class="col-md-4">
+                    <h5 class="fw-bold text-primary mb-2">
+                        <i class="fa-solid fa-boxes-stacked me-2"></i>StockManagementMVC
+                    </h5>
+                    <p class="small mb-0">
+                        Hệ thống quản lý kho hàng thông minh, hỗ trợ nhập xuất và báo cáo hiệu quả.
+                    </p>
+                </div>
+
+                <!-- Cột 2: Menu -->
+                <div class="col-md-4">
+                    <h6 class="fw-bold text-secondary mb-3">Liên kết nhanh</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2">
+                        <li>
+                            <a class="text-decoration-none text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fa-solid fa-house me-2"></i>Trang chủ
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-decoration-none text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                <i class="fa-solid fa-shield-halved me-2"></i>Chính sách bảo mật
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-decoration-none text-dark" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                                <i class="fa-solid fa-gauge me-2"></i>Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Cột 3: Social -->
+                <div class="col-md-4">
+                    <h6 class="fw-bold text-secondary mb-3">Kết nối với chúng tôi</h6>
+                    <a href="#" class="me-3 text-dark"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                    <a href="#" class="me-3 text-dark"><i class="fa-brands fa-github fa-lg"></i></a>
+                    <a href="#" class="text-dark"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+
+            <div class="text-center border-top pt-3 mt-4 pb-3">
+                <small class="text-muted">
+                    &copy; 2025 - StockManagementMVC | Made with <i class="fa-solid fa-heart text-danger"></i> by TK2
+                </small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

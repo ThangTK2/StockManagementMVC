@@ -1,0 +1,68 @@
+﻿@model StockManagementMVC.Models.ProductModel
+
+@{
+    ViewData["Title"] = "Create Products";
+}
+
+<div class="d-flex align-items-center justify-content-center" style="padding: 3rem 8rem;">
+    <div class="card shadow-lg p-4 rounded-4" style="max-width: 500px; width: 100%;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary">Thêm Sản Phẩm</h2>
+            <p class="text-muted">Nhập thông tin sản phẩm mới để quản lý kho hàng</p>
+        </div>
+
+        <form asp-action="Create" method="post" asp-controller="Product">
+            @Html.AntiForgeryToken()  @* tạo token ẩn trong form. là một cơ chế bảo mật để ngăn chặn CSRF*@
+            <div class="mb-3">
+                <label asp-for="ProductCode" class="form-label fw-semibold">Nhập mã sản phẩm</label>
+                <input asp-for="ProductCode" class="form-control" placeholder="Nhập mã sản phẩm" />
+                <span asp-validation-for="ProductCode" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProductName" class="form-label fw-semibold">Nhập tên sản phẩm</label>
+                <input asp-for="ProductName" class="form-control" placeholder="Nhập tên sản phẩm" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProductDescription" class="form-label fw-semibold">Mô tả sản phẩm</label>
+                <textarea asp-for="ProductDescription" class="form-control" placeholder="Mô tả sản phẩm" rows="3"></textarea>
+                <span asp-validation-for="ProductDescription" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProductQuantity" class="form-label fw-semibold">Số lượng</label>
+                <input asp-for="ProductQuantity" type="number" class="form-control" placeholder="Số lượng" />
+                <span asp-validation-for="ProductQuantity" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProductUnit" class="form-label fw-semibold">Đơn vị</label>
+                <select asp-for="ProductUnit" class="form-select">
+                    <option value="">-- Chọn đơn vị --</option>
+                    <option value="Cái">Cái</option>
+                    <option value="Thùng">Thùng</option>
+                    <option value="Bịch">Bịch</option>
+                    <option value="Hộp">Hộp</option>
+                </select>
+                <span asp-validation-for="ProductUnit" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Location" class="form-label fw-semibold">Vị trí kho</label>
+                <input asp-for="Location" class="form-control" placeholder="Nhập vị trí kho" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-action="Index" asp-controller="Product" class="btn btn-secondary fw-semibold">Trở lại danh sách sản phẩm</a>
+                <button type="submit" class="btn btn-primary fw-semibold">Thêm Sản Phẩm</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,82 @@
+﻿@model X.PagedList.IPagedList<StockManagementMVC.Models.ProductModel>
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+
+<div class="container" style="padding: 3rem 8rem;">
+    <h2 class="mb-3 text-primary">Danh sách sản phẩm</h2>
+
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+        <a asp-action="Create" asp-controller="Product" class="btn btn-primary fw-semibold">
+            <i class="bi bi-plus-circle"></i> Thêm sản phẩm mới
+        </a>
+        <span class="text-muted">Tổng sản phẩm: <strong>@Model.Count()</strong></span>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <table class="table table-bordered table-striped shadow-sm">
+        <thead class="">
+            <tr>
+                <th>Mã SP</th>
+                <th>Tên sản phẩm</th>
+                <th>Mô tả</th>
+                <th>Số lượng</th>
+                <th>Đơn vị</th>
+                <th>Vị trí</th>
+                <th>Ngày tạo</th>
+                <th>Cập nhật</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductCode</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.ProductDescription</td>
+                    <td>@item.ProductQuantity</td>
+                    <td>@item.ProductUnit</td>
+                    <td>@item.Location</td>
+                    <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
+                    <td>@item.UpdateDate.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Sửa</a>
+                        <form asp-action="Delete" asp-route-id="@item.Id" method="post"
+                              style="display:inline;"
+                              onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i> Xóa
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- phân trang -->
+    <div class="d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+        new PagedListRenderOptions
+        {
+            DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+            DisplayLinkToLastPage = PagedListDisplayMode.Always,
+            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+            DisplayLinkToNextPage = PagedListDisplayMode.Always,
+            UlElementClasses = new[] { "pagination" },
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
+    </div>
+</div>

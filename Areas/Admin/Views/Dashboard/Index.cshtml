@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="dashboard" style="padding: 3rem 8rem;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold text-primary">Chào mừng đến với Dashboard</h1>
+            <p class="lead">Theo dõi nhanh các kho hàng, sản phẩm, và quản lý người dùng từ một giao diện trực quan.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Card 1: Sản phẩm -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-4 h-100">
+                    <h5 class="fw-bold mb-3">Quản lý Sản phẩm</h5>
+                    <p>Thêm, sửa, xóa và theo dõi tất cả sản phẩm trong kho của bạn một cách nhanh chóng và chính xác.</p>
+                    <a href="/Admin/Product/Index" class="btn btn-primary mt-3">Đi đến sản phẩm</a>
+                </div>
+            </div>
+
+            <!-- Card 2: Nhập kho -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-4 h-100">
+                    <h5 class="fw-bold mb-3">Nhập kho</h5>
+                    <p>Ghi nhận hàng hóa nhập kho, cập nhật tồn kho và đảm bảo số liệu chính xác.</p>
+                    <a href="/Admin/Warehouse/Import" class="btn btn-success mt-3">Nhập kho ngay</a>
+                </div>
+            </div>
+
+            <!-- Card 3: Xuất kho -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-4 h-100">
+                    <h5 class="fw-bold mb-3">Xuất kho</h5>
+                    <p>Quản lý xuất kho, theo dõi số lượng hàng hóa và tránh sai sót trong vận hành.</p>
+                    <a href="/Admin/Warehouse/Export" class="btn btn-warning mt-3">Xuất kho ngay</a>
+                </div>
+            </div>
+
+            <!-- Card 4: Người dùng -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-4 h-100">
+                    <h5 class="fw-bold mb-3">Quản lý Người dùng</h5>
+                    <p>Phân quyền và quản lý người dùng để đảm bảo hệ thống luôn an toàn và hiệu quả.</p>
+                    <a href="/Admin/User/Index" class="btn btn-info mt-3 text-white">Đi đến người dùng</a>
+                </div>
+            </div>
+
+            <!-- Card 5: Báo cáo -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-4 h-100">
+                    <h5 class="fw-bold mb-3">Báo cáo tồn kho</h5>
+                    <p>Xem báo cáo tồn kho chi tiết, báo cáo nhập xuất và tổng quan hiệu suất quản lý kho.</p>
+                    <a href="/Admin/Warehouse/Report" class="btn btn-secondary mt-3">Xem báo cáo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
